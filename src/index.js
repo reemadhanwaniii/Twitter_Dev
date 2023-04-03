@@ -8,6 +8,10 @@ app.listen(3000,async () => {
     console.log('Server started');
     await connect();
     const tweetRepo = new TweetRepository();
-    const tweet = await tweetRepo.update('642acd5845cb06332734e5d3',{content:' updating data with something new'});
+    const tweet = await tweetRepo.create({
+        content: 'Hey! how are you?'
+    });
+    tweet.comments.push({content: 'I am good'});
+    await tweet.save();
     console.log(tweet);
 }); 

@@ -8,12 +8,12 @@ const tweetSchema = new mongoose.Schema({
     userEmail: {
         type: String
     },
-    comments : [{
-        content: {
-            type: String,
-            required: true
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
         }
-    }]
+    ]
 },{timestamps: true});
 
 
