@@ -3,7 +3,7 @@ const Tweet = require('../models/tweet');
 class TweetRepository {
     async create(data) {
         try {
-            const tweet = Tweet.create(data);
+            const tweet = await Tweet.create(data);
             return tweet;
         } catch(error) {
             throw error;
@@ -11,7 +11,7 @@ class TweetRepository {
     }
     async update(id,data) {
         try {
-            const tweet = Tweet.findByIdAndUpdate(id,data,{new: true});
+            const tweet = await Tweet.findByIdAndUpdate(id,data,{new: true});
             return tweet;
         } catch(error) {
             throw error;
@@ -19,7 +19,7 @@ class TweetRepository {
     }
     async destroy(id) {
         try {
-            const tweet = Tweet.findByIdAndRemove(id);
+            const tweet = await Tweet.findByIdAndRemove(id);
             return tweet;
         } catch (error) {
             throw error;
@@ -27,7 +27,7 @@ class TweetRepository {
     }
     async get(id) {
         try {
-            const tweet = Tweet.findById(id);
+            const tweet = await Tweet.findById(id).populate({path: 'comments'}).lean();
             return tweet;
         } catch (error) {
             throw error;
