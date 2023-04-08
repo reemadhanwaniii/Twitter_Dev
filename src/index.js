@@ -3,36 +3,14 @@ const connect = require('./config/database');
 
 const app = express();
 
-const { HashtagRepository} = require('./repository/index');
+const TweetService  = require('./services/tweet-service');
 
 app.listen(3000,async () => {
     console.log('Server started');
     await connect();
-    // let repo = new HashtagRepository();
-    // await repo.bulkCreate([
-    //     {
-    //         title: 'Trend',
-    //         tweets: []
-    //     },
-    //     {
-    //         title: 'Excited',
-    //         tweets: []
-    //     },
-    //     {
-    //         title: 'python',
-    //         tweets: []
-    //     },
-    //     {
-    //         title: 'fun',
-    //         tweets: []
-    //     },
-    //     {
-    //         title: 'Career',
-    //         tweets: []
-    //     }
-    // ]);
-
-    // let repo = new HashtagRepository();
-    // const tweets = await repo.findByName(['trend','Career','python','tweets','reema']);
-    // console.log(tweets);
+    let service = new TweetService();
+    const tweet = await service.create({
+        content: 'my #working twitter'
+    });
+    console.log(tweet);
 }); 
