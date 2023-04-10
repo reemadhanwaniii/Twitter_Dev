@@ -5,11 +5,7 @@ import bodyParser from 'body-parser';
 import { PORT } from './config/serverConfig.js';
 const app = express();
 
-import apiRoutes from './routes/index.js';
-
-import {UserRepository,TweetRepository} from './repository/index.js';
-import LikeService from './services/like-service.js';
- 
+import apiRoutes from './routes/index.js'; 
 
 app.listen(PORT,async () => {
 

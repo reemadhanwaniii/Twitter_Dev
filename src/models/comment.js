@@ -20,6 +20,12 @@ import mongoose  from "mongoose";
         required: true,
         refPath: 'onModel'
     },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 });
 
 const Comment = mongoose.model('Comment',commentSchema);
