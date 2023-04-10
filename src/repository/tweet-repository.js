@@ -11,6 +11,7 @@ class TweetRepository extends CrudRepository {
             const tweet = await Tweet.create(data);
             return tweet;
         } catch(error) {
+            console.log('Something went wrong in repository layer');
             throw error;
         }
     }
@@ -19,6 +20,7 @@ class TweetRepository extends CrudRepository {
             const tweet = await Tweet.findByIdAndUpdate(id,data,{new: true});
             return tweet;
         } catch(error) {
+            console.log('Something went wrong in repository layer');
             throw error;
         }
     }
@@ -27,6 +29,16 @@ class TweetRepository extends CrudRepository {
             const tweet = await Tweet.find().skip(offset).limit(limit);
             return tweet;
         } catch (error) {
+            console.log('Something went wrong in repository layer');
+            throw error;
+        }
+    }
+    async find(id) {
+        try {
+            const tweet = await Tweet.findById(id).populate({path: 'likes'});
+            return tweet;
+        } catch (error) {
+            console.log('Something went wrong in repository layer');
             throw error;
         }
     }

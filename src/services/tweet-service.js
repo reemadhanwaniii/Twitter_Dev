@@ -13,20 +13,20 @@ class TweetService {
                      
         const tweet = await this.tweetRepository.create(data);
         //we need to filter those hashtags which are not present in array of array
-        let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
-        let titleOfPresentTags = alreadyPresentTags.map(tags => tags.title);
-
-        let newTags = tags.filter(tag => !titleOfPresentTags.includes(tag));
-        newTags = newTags.map(tag => {
-         return {title: tag , tweets : [tweet.id]}
-        });
-
-        const response = await this.hashtagRepository.bulkCreate(newTags);
-        //we need to update all #s which are already present
-        alreadyPresentTags.forEach((tag)=>{
-          tag.tweets.push(tweet.id);
-          tag.save();
-        });
+         let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
+         let titleOfPresentTags = alreadyPresentTags.map(tags => tags.title);
+ 
+         let newTags = tags.filter(tag => !titleOfPresentTags.includes(tag));
+         newTags = newTags.map(tag => {
+          return {title: tag , tweets : [tweet.id]}
+         });
+ 
+         const response = await this.hashtagRepository.bulkCreate(newTags);
+         //we need to update all #s which are already present
+         alreadyPresentTags.forEach((tag)=>{
+           tag.tweets.push(tweet.id);
+           tag.save();
+         });
         return tweet;
      }
 }
